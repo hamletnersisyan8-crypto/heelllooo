@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="hy">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Համացանցի վիրտուալ լաբորատորիա</title>
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#eaf4ff,#f8fbff);color:#17304f}
+header{padding:26px 5%;background:linear-gradient(120deg,#064b9b,#087fd1);color:white}
+header a{color:white;text-decoration:none;margin-right:18px;font-weight:600}
+header a:hover{text-decoration:underline}
+.wrap{width:min(1100px,92%);margin:28px auto}
+.panel{background:white;border:1px solid #dce9f7;border-radius:18px;padding:22px;margin:18px 0;box-shadow:0 10px 28px #17304f12}
+.panel h2{margin-top:0;color:#07569d}
+.feedback{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;background:#fff8e8;border-color:#f0d9a3}
+.feedback h2{margin-bottom:6px;color:#75551d}
+.feedback p{margin:0;color:#75551d;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.control{display:block;margin:14px 0}
+.control label{display:flex;justify-content:space-between;gap:12px;font-weight:600;margin-bottom:8px}
+.control input{width:100%;accent-color:#087fd1}
+.btn{display:inline-block;border:0;border-radius:10px;padding:12px 18px;background:linear-gradient(120deg,#087fd1,#0755a5);color:white;font-weight:700;font-size:1rem;cursor:pointer;margin:5px;text-decoration:none}
+.btn.secondary{background:#e8f2fc;color:#07569d}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn:focus-visible,header a:focus-visible,input:focus-visible{outline:3px solid #ffb703;outline-offset:2px}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.metric{background:#f0f7ff;border-radius:12px;padding:14px}
+.metric small{display:block;color:#4f677f}
+.metric strong{display:block;font-size:1.35rem;margin-top:6px;color:#07569d}
+.visual{background:#071b36;border-radius:14px;position:relative;overflow:hidden;color:white}
+.hint{color:#4f677f;line-height:1.6}
+.status{font-weight:700;color:#0873bd}
+.node{width:min(92px,24%);height:70px;top:80px;left:var(--x);transform:translateX(-50%);border:2px solid #59b9ff;border-radius:14px;display:grid;place-items:center;text-align:center;background:#10375e;color:#fff;font-size:13px;position:absolute;z-index:2}
+.packet{position:absolute;top:109px;left:0;width:12px;height:12px;border-radius:50%;background:#ffda67;box-shadow:0 0 12px #ffda67;z-index:3}
+.packet.lost{background:#ff6b6b;box-shadow:0 0 12px #ff6b6b}
+.route-line{position:absolute;top:114px;height:3px;background:#3d80bd;z-index:1}
+.caption{position:absolute;bottom:10px;left:15px;right:15px;margin:0;color:#c6ddf4;font-size:12px}
+.bar{height:12px;background:#e3edf7;border-radius:99px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,#20c5a5,#087fd1);transition:width .3s}
+footer{text-align:center;padding:24px;color:#5d7186}
+@media(max-width:600px){header a{display:inline-block;margin:5px 10px 5px 0}.panel{padding:16px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+<nav>
+<a href="index.html">Գլխավոր</a>
+<a href="waves.html">Էլեկտրամագնիսական ալիքներ</a>
+<a href="internet.html">Համացանց</a>
+<a href="radio.html">Ռադիոհաղորդակցություն</a>
+<a href="request.html">Առաջարկներ և կարծիքներ</a>
+</nav>
+<h1>🌐 Համացանցի վիրտուալ լաբորատորիա</h1>
+<p>Դիտեք, թե ինչպես են տվյալների փաթեթները անցնում սարքից դեպի սերվեր։</p>
+</header>
+<main class="wrap">
+<section class="panel feedback" aria-labelledby="feedbackTitle">
+<div>
+<h2 id="feedbackTitle">💬 Առաջարկներ և կարծիքներ</h2>
+<p>Ունե՞ք առաջարկ, կարծիք կամ հարց այս լաբորատորիայի վերաբերյալ։ Կիսվեք մեզ հետ։</p>
+</div>
+<a class="btn" href="request.html?lab=internet">Գրել մեզ →</a>
+</section>
+
+<section class="panel">
+<h2>Ցանցի մոդելավորում</h2>
+<p class="hint">Սա պարզեցված ուսումնական մոդել է․ այն ցույց է տալիս փաթեթների փոխանցումը, ուշացումը և հնարավոր կորուստները։</p>
+<div class="grid">
+<div>
+<div class="control"><label for="speed">Փոխանցման արագություն <b id="speedText">5 փաթեթ/վ</b></label><input id="speed" type="range" min="1" max="10" value="5"></div>
+<div class="control"><label for="loss">Փաթեթի կորստի հավանականություն <b id="lossText">5%</b></label><input id="loss" type="range" min="0" max="40" value="5"></div>
+<div class="control"><label for="latency">Ցանցի ուշացում <b id="latencyText">200 մվ</b></label><input id="latency" type="range" min="50" max="800" step="50" value="200"></div>
+<button class="btn" id="start" type="button">▶ Սկսել փոխանցումը</button>
+<button class="btn secondary" id="reset" type="button">Վերագործարկել</button>
+<p class="status" id="status" role="status" aria-live="polite">Պատրաստ է փոխանցմանը։</p>
+</div>
+<div class="visual" id="network" style="min-height:245px">
+<div class="node" style="--x:14%">💻<br>Ձեր սարքը</div>
+<div class="node" style="--x:50%">📡<br>Ուղղորդիչ</div>
+<div class="node" style="--x:86%">🖥️<br>Սերվեր</div>
+<div class="route-line" style="left:14%;width:36%"></div>
+<div class="route-line" style="left:50%;width:36%"></div>
+<p class="caption">Փաթեթների ճանապարհը՝ սարք → ուղղորդիչ → սերվեր (դեղինը՝ հասնող, կարմիրը՝ կորած փաթեթ)</p>
+</div>
+</div>
+</section>
+
+<section class="panel">
+<h2>Փորձի արդյունքներ</h2>
+<div class="metrics">
+<div class="metric"><small>Ուղարկված փաթեթներ</small><strong id="sent">0</strong></div>
+<div class="metric"><small>Հասած փաթեթներ</small><strong id="received">0</strong></div>
+<div class="metric"><small>Կորած փաթեթներ</small><strong id="lost">0</strong></div>
+<div class="metric"><small>Միջին ուշացում</small><strong id="delay">—</strong></div>
+</div>
+<div class="control"><label>Փոխանցման առաջընթաց</label><div class="bar"><span id="progress"></span></div></div>
+<p class="hint" id="summary" aria-live="polite">Սկսեք փորձը՝ դիտելու տվյալների փոխանցման ընթացքը։</p>
+</section>
+
+<section class="panel">
+<h2>Ի՞նչ սովորեցինք</h2>
+<ul>
+<li>Տվյալները ցանցով փոխանցվում են փոքր մասերով՝ փաթեթներով։</li>
+<li>Ուղղորդիչը օգնում է փաթեթներին հասնել ճիշտ ցանցային ուղղությամբ։</li>
+<li>Ուշացումն ու փաթեթների կորուստը կարող են ազդել կապի որակի վրա։</li>
+</ul>
+</section>
+</main>
+<footer>Ուսումնական մոդելավորում • Համացանց</footer>
+<script>
+const $ = id => document.getElementById(id);
+const TOTAL = 30;
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let sent = 0, received = 0, lost = 0, delaySum = 0, inflight = 0;
+let timer = null, running = false, runId = 0;
+
+function controls() {
+  $('speedText').textContent = $('speed').value + ' փաթեթ/վ';
+  $('lossText').textContent = $('loss').value + '%';
+  $('latencyText').textContent = $('latency').value + ' մվ';
+}
+
+function paint() {
+  $('sent').textContent = sent;
+  $('received').textContent = received;
+  $('lost').textContent = lost;
+  $('delay').textContent = received ? Math.round(delaySum / received) + ' մվ' : '—';
+  $('progress').style.width = ((received + lost) / TOTAL * 100) + '%';
+  $('summary').textContent = sent
+    ? `Ուղարկվել է ${sent} փաթեթ, դրանցից ${received}-ը հասել է, ${lost}-ը կորել է։`
+    : 'Սկսեք փորձը՝ դիտելու տվյալների փոխանցման ընթացքը։';
+}
+
+function checkDone() {
+  if (sent >= TOTAL && inflight === 0) {
+    running = false;
+    $('start').disabled = false;
+    $('status').textContent = 'Փորձն ավարտվեց։';
+  }
+}
+
+// Մեկ փաթեթի ուղարկում․ թռիչքի տևողությունը կախված է ընտրված ուշացումից
+function launch() {
+  const net = $('network');
+  const delay = Math.round(+$('latency').value * (0.85 + Math.random() * 0.3));
+  const fail = Math.random() * 100 < +$('loss').value;
+  const w = net.clientWidth, x1 = .14 * w - 6, x2 = .5 * w - 6, x3 = .86 * w - 6;
+  const p = document.createElement('div');
+  const id = runId;
+  p.className = 'packet' + (fail ? ' lost' : '');
+  net.appendChild(p);
+  inflight++;
+
+  const finish = () => {
+    p.remove();
+    if (id !== runId) return;
+    inflight--;
+    if (fail) lost++; else { received++; delaySum += delay; }
+    paint();
+    checkDone();
+  };
+
+  const duration = fail ? delay / 2 : delay; // կորած փաթեթը անհետանում է ուղղորդիչի մոտ
+  if (reduced || !p.animate) {
+    p.style.transform = `translateX(${fail ? x2 : x3}px)`;
+    setTimeout(finish, duration);
+    return;
+  }
+  const frames = fail
+    ? [{transform: `translateX(${x1}px)`, opacity: 1},
+       {transform: `translateX(${x2}px)`, opacity: 1, offset: .75},
+       {transform: `translateX(${x2}px)`, opacity: 0}]
+    : [{transform: `translateX(${x1}px)`},
+       {transform: `translateX(${x2}px)`, offset: .5},
+       {transform: `translateX(${x3}px)`}];
+  p.animate(frames, {duration, easing: 'linear', fill: 'forwards'}).onfinish = finish;
+}
+
+function tick() {
+  if (!running) return;
+  sent++;
+  launch();
+  paint();
+  if (sent < TOTAL) {
+    timer = setTimeout(tick, Math.max(100, 1000 / +$('speed').value));
+  } else {
+    timer = null;
+    checkDone();
+  }
+}
+
+function reset() {
+  clearTimeout(timer);
+  timer = null;
+  runId++;
+  running = false;
+  inflight = 0;
+  sent = received = lost = delaySum = 0;
+  document.querySelectorAll('#network .packet').forEach(p => p.remove());
+  $('start').disabled = false;
+  $('status').textContent = 'Պատրաստ է փոխանցմանը։';
+  paint();
+}
+
+['speed', 'loss', 'latency'].forEach(id => $(id).addEventListener('input', controls));
+$('reset').addEventListener('click', reset);
+$('start').addEventListener('click', () => {
+  if (running) return;
+  if (sent >= TOTAL) reset();
+  running = true;
+  $('start').disabled = true;
+  $('status').textContent = 'Տվյալների փաթեթները փոխանցվում են…';
+  tick();
+});
+controls();
+paint();
+</script>
+</body>
+</html>

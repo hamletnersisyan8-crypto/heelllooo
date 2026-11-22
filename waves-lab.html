@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="hy">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Էլեկտրամագնիսական ալիքների լաբորատորիա</title>
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#eaf4ff,#f8fbff);color:#17304f}
+header{padding:26px 5%;background:linear-gradient(120deg,#064b9b,#087fd1);color:white}
+header a{color:white;text-decoration:none;margin-right:18px;font-weight:600}
+header a:hover{text-decoration:underline}
+.wrap{width:min(1100px,92%);margin:28px auto}
+.panel{background:white;border:1px solid #dce9f7;border-radius:18px;padding:22px;margin:18px 0;box-shadow:0 10px 28px #17304f12}
+.panel h2{margin-top:0;color:#07569d}
+.feedback{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;background:#fff8e8;border-color:#f0d9a3}
+.feedback h2{margin-bottom:6px;color:#75551d}
+.feedback p{margin:0;color:#75551d;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.control{display:block;margin:14px 0}
+.control label{display:flex;justify-content:space-between;gap:12px;font-weight:600;margin-bottom:8px}
+.control input,.control select{width:100%;accent-color:#087fd1}
+.control select{padding:10px;border:1px solid #cbd5e1;border-radius:8px;background:white;color:#17304f}
+.btn{display:inline-block;border:0;border-radius:10px;padding:12px 18px;background:linear-gradient(120deg,#087fd1,#0755a5);color:white;font-weight:700;font-size:1rem;cursor:pointer;margin:5px;text-decoration:none}
+.btn.secondary{background:#e8f2fc;color:#07569d}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn:focus-visible,header a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #ffb703;outline-offset:2px}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.metric{background:#f0f7ff;border-radius:12px;padding:14px}
+.metric small{display:block;color:#4f677f}
+.metric strong{display:block;font-size:1.35rem;margin-top:6px;color:#07569d}
+.visual{min-height:230px;background:#071b36;border-radius:14px;position:relative;overflow:hidden;padding:0;color:white}
+canvas{width:100%;height:230px;display:block}
+.hint{color:#4f677f;line-height:1.6}
+.status{font-weight:700;color:#0873bd}
+.bar{height:12px;background:#e3edf7;border-radius:99px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,#20c5a5,#087fd1);transition:width .3s}
+footer{text-align:center;padding:24px;color:#5d7186}
+@media(max-width:600px){header a{display:inline-block;margin:5px 10px 5px 0}.panel{padding:16px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+<nav>
+<a href="index.html">Գլխավոր</a>
+<a href="waves.html">Էլեկտրամագնիսական ալիքներ</a>
+<a href="internet.html">Համացանց</a>
+<a href="radio.html">Ռադիոհաղորդակցություն</a>
+<a href="request.html">Առաջարկներ և կարծիքներ</a>
+</nav>
+<h1>🌈 Էլեկտրամագնիսական ալիքների լաբորատորիա</h1>
+<p>Ուսումնասիրեք հաճախականության, ալիքի երկարության և էլեկտրամագնիսական սպեկտրի կապը։</p>
+</header>
+<main class="wrap">
+<section class="panel feedback" aria-labelledby="feedbackTitle">
+<div>
+<h2 id="feedbackTitle">💬 Առաջարկներ և կարծիքներ</h2>
+<p>Ունե՞ք առաջարկ, կարծիք կամ հարց այս լաբորատորիայի վերաբերյալ։ Կիսվեք մեզ հետ։</p>
+</div>
+<a class="btn" href="request.html?lab=waves">Գրել մեզ →</a>
+</section>
+
+<section class="panel">
+<h2>Փորձի կառավարում</h2>
+<p class="hint">Փոխեք հաճախականությունը (սանդղակը լոգարիթմական է՝ 1 կՀց-ից մինչև 100 ԶՀց) կամ ընտրեք սպեկտրի տիրույթ։ Ընտրված տիրույթի համար կտեղադրվի բնորոշ հաճախականություն, իսկ ալիքի երկարությունը կվերահաշվարկվի։</p>
+<div class="grid">
+<div>
+<div class="control">
+<label for="freq">Հաճախականություն <b id="freqText">100 MHz</b></label>
+<input id="freq" type="range" min="3" max="23" step="0.01" value="8">
+</div>
+<div class="control">
+<label for="kind">Սպեկտրի տիրույթ</label>
+<select id="kind">
+<option value="radio">Ռադիոալիքներ</option>
+<option value="micro">Միկրոալիքներ</option>
+<option value="infra">Ինֆրակարմիր ճառագայթներ</option>
+<option value="visible">Տեսանելի լույս</option>
+<option value="uv">Ուլտրամանուշակագույն ճառագայթներ</option>
+<option value="xray">Ռենտգենյան ճառագայթներ</option>
+<option value="gamma">Գամմա ճառագայթներ</option>
+</select>
+</div>
+<button class="btn" id="run" type="button">▶ Գործարկել ալիքը</button>
+<button class="btn secondary" id="pause" type="button">Դադարեցնել</button>
+</div>
+<div class="visual"><canvas id="waveCanvas" role="img" aria-label="Ալիքի անիմացիոն պատկերում"></canvas></div>
+</div>
+</section>
+
+<section class="panel">
+<h2>Չափումների արդյունքներ</h2>
+<div class="metrics" aria-live="polite">
+<div class="metric"><small>Հաճախականություն</small><strong id="outFreq">100 MHz</strong></div>
+<div class="metric"><small>Ալիքի երկարություն</small><strong id="lambda">3 մ</strong></div>
+<div class="metric"><small>Տարածման արագություն</small><strong>≈ 3×10⁸ մ/վ</strong></div>
+</div>
+<p class="hint">Բանաձևը՝ λ = c / f, որտեղ c-ն վակուումում լույսի արագությունն է, իսկ f-ը՝ հաճախականությունը։</p>
+<div class="control">
+<label>Սպեկտրի դիրքը (լոգարիթմական սանդղակ)</label>
+<div class="bar"><span id="spectrumBar"></span></div>
+<p class="status" id="spectrumLabel">Ռադիոալիքներ</p>
+</div>
+</section>
+
+<section class="panel">
+<h2>Փորձի եզրակացություն</h2>
+<p id="conclusion" aria-live="polite">Բարձրացրեք հաճախականությունը և հետևեք ալիքի երկարության նվազմանը։</p>
+</section>
+</main>
+<footer>Ուսումնական մոդելավորում • Էլեկտրամագնիսական ալիքներ</footer>
+<script>
+const $ = id => document.getElementById(id);
+const freq = $('freq'), kind = $('kind'), canvas = $('waveCanvas'), ctx = canvas.getContext('2d');
+const C = 299792458; // լույսի արագությունը վակուումում, մ/վ
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let running = !reduced, phase = 0;
+
+// max՝ տիրույթի վերին սահմանը (Հց), typ՝ բնորոշ հաճախականության տասնորդական լոգարիթմը
+const bands = [
+  {key: 'radio',   name: 'Ռադիոալիքներ',                 max: 3e8,      typ: 8,     use: 'Օգտագործվում են ռադիոյի և հեռուստատեսության հաղորդումների համար։'},
+  {key: 'micro',   name: 'Միկրոալիքներ',                 max: 3e11,     typ: 9.39,  use: 'Օգտագործվում են Wi-Fi-ում, բջջային կապում և միկրոալիքային վառարաններում։'},
+  {key: 'infra',   name: 'Ինֆրակարմիր ճառագայթներ',      max: 4e14,     typ: 13.5,  use: 'Օգտագործվում են հեռակառավարման վահանակներում և ջերմային պատկերման սարքերում։'},
+  {key: 'visible', name: 'Տեսանելի լույս',               max: 7.9e14,   typ: 14.74, use: 'Սա սպեկտրի այն հատվածն է, որը տեսնում է մարդու աչքը։'},
+  {key: 'uv',      name: 'Ուլտրամանուշակագույն ճառագայթներ', max: 3e16, typ: 16,    use: 'Արևի ուլտրամանուշակագույն ճառագայթները առաջացնում են արևայրուք, իսկ արհեստականները օգտագործվում են ախտահանման համար։'},
+  {key: 'xray',    name: 'Ռենտգենյան ճառագայթներ',       max: 3e19,     typ: 18.5,  use: 'Օգտագործվում են բժշկական պատկերման մեջ։'},
+  {key: 'gamma',   name: 'Գամմա ճառագայթներ',             max: Infinity, typ: 20.5,  use: 'Արտանետվում են ռադիոակտիվ նյութերի կողմից և ունեն շատ մեծ էներգիա։'}
+];
+
+const bandOf = f => bands.find(b => f < b.max);
+
+function fmtFreq(f) {
+  const units = [['ZHz', 1e21], ['EHz', 1e18], ['PHz', 1e15], ['THz', 1e12], ['GHz', 1e9], ['MHz', 1e6], ['kHz', 1e3], ['Hz', 1]];
+  const [name, size] = units.find(u => f >= u[1]) || units[units.length - 1];
+  return Number((f / size).toPrecision(3)) + ' ' + name;
+}
+
+function fmtLen(l) {
+  const units = [[1e3, 'կմ', 1e3], [1, 'մ', 1], [1e-3, 'մմ', 1e-3], [1e-6, 'մկմ', 1e-6], [1e-9, 'նմ', 1e-9], [1e-12, 'պմ', 1e-12]];
+  const u = units.find(x => l >= x[0]);
+  return u ? Number((l / u[2]).toPrecision(3)) + ' ' + u[1] : Number((l / 1e-15).toPrecision(3)) + ' ֆմ';
+}
+
+function update() {
+  const lg = +freq.value, f = Math.pow(10, lg), lam = C / f, b = bandOf(f);
+  const fText = fmtFreq(f), lText = fmtLen(lam);
+  $('freqText').textContent = fText;
+  $('outFreq').textContent = fText;
+  $('lambda').textContent = lText;
+  freq.setAttribute('aria-valuetext', fText);
+  if (kind.value !== b.key) kind.value = b.key;
+  $('spectrumLabel').textContent = b.name;
+  $('spectrumBar').style.width = ((lg - 3) / 20 * 100) + '%';
+  $('conclusion').textContent = 'Ընտրված է՝ ' + b.name + '։ Հաճախականությունը ' + fText + ' է, ալիքի երկարությունը՝ ' + lText + '։ ' + b.use +
+    ' Հաճախականության աճին զուգահեռ ալիքի երկարությունը նվազում է։';
+}
+
+function draw() {
+  const w = canvas.clientWidth, h = 230, dpr = window.devicePixelRatio || 1;
+  const W = Math.round(w * dpr), H = Math.round(h * dpr);
+  if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, w, h);
+  ctx.strokeStyle = '#24476b';
+  ctx.lineWidth = 1;
+  for (let x = 0; x < w; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+  ctx.strokeStyle = '#53c8ff';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  const cycles = 2 + (+freq.value - 3) / 20 * 10; // 2…12 պարբերություն
+  for (let x = 0; x < w; x++) {
+    const y = h / 2 + Math.sin(x / w * cycles * Math.PI * 2 - phase) * 70;
+    x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+  ctx.fillStyle = '#fff';
+  ctx.font = '13px Arial';
+  ctx.fillText('Էլեկտրամագնիսական ալիքի պայմանական պատկերում', 12, 22);
+  if (running) phase += .035;
+  requestAnimationFrame(draw);
+}
+
+function setRunning(value) {
+  running = value;
+  $('run').disabled = value;
+  $('pause').disabled = !value;
+}
+
+freq.addEventListener('input', update);
+kind.addEventListener('change', () => {
+  freq.value = bands.find(b => b.key === kind.value).typ;
+  update();
+});
+$('run').addEventListener('click', () => setRunning(true));
+$('pause').addEventListener('click', () => setRunning(false));
+setRunning(running);
+update();
+draw();
+</script>
+</body>
+</html>
