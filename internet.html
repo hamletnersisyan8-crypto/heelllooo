@@ -13,11 +13,6 @@
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 110px;
-}
-
 body {
     font-family: Arial, sans-serif;
     color: white;
@@ -64,7 +59,7 @@ nav a:hover {
     color: #36cfff;
 }
 
-/* Հիմնական կառուցվածք */
+/* Հիմնական դասավորություն */
 
 .container {
     max-width: 1250px;
@@ -74,60 +69,12 @@ nav a:hover {
 
 .main-layout {
     display: grid;
-    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-columns: 220px minmax(0,1fr);
     gap: 25px;
     align-items: start;
 }
 
-.main-content {
-    min-width: 0;
-}
-
-h1 {
-    text-align: center;
-    font-size: clamp(28px,5vw,45px);
-    color: #36cfff;
-    margin-bottom: 25px;
-}
-
-.intro {
-    text-align: center;
-    line-height: 1.9;
-    font-size: 17px;
-    color: #e1ebff;
-    max-width: 850px;
-    margin: auto auto 35px;
-}
-
-.content {
-    background: rgba(8,35,76,.85);
-    border: 1px solid #36cfff66;
-    border-radius: 20px;
-    padding: 30px;
-    margin-bottom: 25px;
-    box-shadow: 0 10px 35px #0004;
-    line-height: 1.9;
-    scroll-margin-top: 110px;
-}
-
-h2 {
-    color: #36cfff;
-    margin-bottom: 15px;
-}
-
-p {
-    margin-bottom: 15px;
-}
-
-.content img {
-    width: 100%;
-    max-height: 400px;
-    object-fit: cover;
-    border-radius: 15px;
-    margin: 15px 0;
-}
-
-/* Ձախ կողմի մենյու */
+/* Ձախ մենյու */
 
 .left-menu {
     position: sticky;
@@ -150,7 +97,7 @@ p {
     display: block;
     color: #e1ebff;
     text-decoration: none;
-    padding: 12px 10px;
+    padding: 13px 10px;
     margin-bottom: 9px;
     border-radius: 10px;
     border: 1px solid transparent;
@@ -167,9 +114,68 @@ p {
 }
 
 .left-menu a.active {
-    background: rgba(54,207,255,.18);
+    background: rgba(54,207,255,.2);
     border-color: #36cfff;
     color: #36cfff;
+}
+
+/* Բովանդակություն */
+
+.main-content {
+    min-width: 0;
+}
+
+h1 {
+    text-align: center;
+    font-size: clamp(28px,5vw,45px);
+    color: #36cfff;
+    margin-bottom: 25px;
+}
+
+.content {
+    display: none;
+    background: rgba(8,35,76,.85);
+    border: 1px solid #36cfff66;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 35px #0004;
+    line-height: 1.9;
+    animation: fadeIn .45s ease;
+}
+
+/* Միայն ընտրված բաժինն է երևում */
+
+.content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h2 {
+    color: #36cfff;
+    margin-bottom: 18px;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+.content img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin: 15px 0;
 }
 
 /* Կոճակներ */
@@ -192,31 +198,19 @@ p {
     transform: translateY(-3px);
 }
 
-/* Ստորին հատված */
+/* Ներքևի հատված */
 
 footer {
     text-align: center;
     padding: 25px;
     background: #020f27;
     color: #c8ddff;
+    margin-top: 60px;
 }
 
-/* Պլանշետներ և փոքր էկրաններ */
+/* Հեռախոսների համար */
 
-@media(max-width:850px) {
-    .main-layout {
-        grid-template-columns: 180px minmax(0, 1fr);
-        gap: 15px;
-    }
-
-    .left-menu {
-        padding: 12px;
-    }
-}
-
-/* Հեռախոսներ */
-
-@media(max-width:650px) {
+@media(max-width:750px) {
 
     .container {
         margin: 25px auto;
@@ -278,35 +272,41 @@ footer {
 
     <aside class="left-menu">
 
-        <h3>📚 Նյութեր</h3>
+        <h3>📚 Բաժիններ</h3>
 
-        <a href="#information">🌐 Համացանց</a>
+        <a href="#" class="active" data-section="information">
+            🌐 Համացանց
+        </a>
 
-        <a href="#possibilities">💡 Հնարավորություններ</a>
+        <a href="#" data-section="possibilities">
+            💡 Հնարավորություններ
+        </a>
 
-        <a href="#security">🔒 Անվտանգություն</a>
+        <a href="#" data-section="security">
+            🔒 Անվտանգություն
+        </a>
 
-        <a href="#laboratory">🧪 Լաբորատորիա</a>
+        <a href="#" data-section="laboratory">
+            🧪 Լաբորատորիա
+        </a>
 
-        <a href="#explanation">📖 Բացատրություն</a>
+        <a href="#" data-section="explanation">
+            📖 Բացատրություն
+        </a>
 
     </aside>
 
 
-    <!-- ՀԻՄՆԱԿԱՆ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ -->
+    <!-- ՀԻՄՆԱԿԱՆ ԲՈՎԱՆԴԱԿՈՒԹՅՈՒՆ -->
 
     <main class="main-content">
 
         <h1>Համացանց</h1>
 
-        <p class="intro">
-            Համացանցը ժամանակակից աշխարհի ամենակարևոր
-            տեխնոլոգիաներից է, որն իրար է կապում միլիոնավոր
-            սարքեր և մարդկանց ամբողջ աշխարհում։
-        </p>
 
+        <!-- ԲԱԺԻՆ 1 -->
 
-        <section class="content" id="information">
+        <section class="content active" id="information">
 
             <h2>Ի՞նչ է համացանցը</h2>
 
@@ -325,16 +325,19 @@ footer {
         </section>
 
 
+        <!-- ԲԱԺԻՆ 2 -->
+
         <section class="content" id="possibilities">
 
             <h2>Համացանցի հնարավորությունները</h2>
 
             <p>
-                Համացանցի միջոցով կարելի է՝
+                Համացանցը մարդկանց տալիս է բազմաթիվ
+                հնարավորություններ։
             </p>
 
             <p>
-                • Սովորել առցանց<br>
+                • Սովորել առցանց և մասնակցել դասընթացների<br>
                 • Օգտվել տարբեր կայքերից<br>
                 • Փոխանակել տեղեկություններ<br>
                 • Աշխատել հեռավար<br>
@@ -344,6 +347,8 @@ footer {
         </section>
 
 
+        <!-- ԲԱԺԻՆ 3 -->
+
         <section class="content" id="security">
 
             <h2>Անվտանգությունը համացանցում</h2>
@@ -351,13 +356,23 @@ footer {
             <p>
                 Համացանցից օգտվելիս կարևոր է պահպանել
                 անձնական տվյալների անվտանգությունը։
+            </p>
+
+            <p>
                 Պետք է օգտագործել ուժեղ գաղտնաբառեր,
                 չտարածել անձնական տեղեկություններ և
                 զգուշանալ անհայտ հղումներից։
             </p>
 
+            <p>
+                Անվտանգ համացանցը սկսվում է յուրաքանչյուր
+                օգտատիրոջ պատասխանատու վարքագծից։
+            </p>
+
         </section>
 
+
+        <!-- ԲԱԺԻՆ 4 -->
 
         <section class="content" id="laboratory">
 
@@ -368,12 +383,20 @@ footer {
                 թե ինչպես են փաթեթները շարժվում սարքերի ու սերվերի միջև։
             </p>
 
+            <p>
+                Լաբորատորիայում կարող եք ուսումնասիրել
+                տվյալների փոխանցման գործընթացը և
+                հասկանալ, թե ինչպես են սարքերը կապ հաստատում։
+            </p>
+
             <a class="video" href="internet-lab.html">
                 🧪 Բացել համացանցի լաբորատորիան
             </a>
 
         </section>
 
+
+        <!-- ԲԱԺԻՆ 5 -->
 
         <section class="content" id="explanation">
 
@@ -406,46 +429,55 @@ footer {
 </footer>
 
 
-<!-- ԱԿՏԻՎ ԲԱԺՆԻ ԱՎՏՈՄԱՏ ՆՇՈՒՄ -->
+<!-- ԲԱԺԻՆՆԵՐԻ ՓՈՓՈԽՄԱՆ JAVASCRIPT -->
 
 <script>
-
-const sections = document.querySelectorAll(
-    '.main-content .content'
-);
 
 const menuLinks = document.querySelectorAll(
     '.left-menu a'
 );
 
-const observer = new IntersectionObserver((entries) => {
+const sections = document.querySelectorAll(
+    '.main-content .content'
+);
 
-    entries.forEach(entry => {
+menuLinks.forEach(link => {
 
-        if (entry.isIntersecting) {
+    link.addEventListener('click', function(event) {
 
-            menuLinks.forEach(link => {
-                link.classList.remove('active');
-            });
+        event.preventDefault();
 
-            const activeLink = document.querySelector(
-                '.left-menu a[href="#' + entry.target.id + '"]'
-            );
+        // Ստանում ենք ընտրված բաժնի ID-ն
+        const sectionId = this.dataset.section;
 
-            if (activeLink) {
-                activeLink.classList.add('active');
-            }
+        // Թաքցնում ենք բոլոր բաժինները
+        sections.forEach(section => {
+            section.classList.remove('active');
+        });
 
+        // Բացում ենք միայն ընտրված բաժինը
+        const selectedSection = document.getElementById(sectionId);
+
+        if (selectedSection) {
+            selectedSection.classList.add('active');
         }
+
+        // Հեռացնում ենք հին ակտիվ նշումը
+        menuLinks.forEach(item => {
+            item.classList.remove('active');
+        });
+
+        // Նշում ենք ընտրված մենյուն
+        this.classList.add('active');
+
+        // Էջը սահուն բարձրացնում ենք բովանդակության սկզբին
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
 
     });
 
-}, {
-    rootMargin: '-20% 0px -60% 0px'
-});
-
-sections.forEach(section => {
-    observer.observe(section);
 });
 
 </script>
