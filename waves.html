@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="hy">
 <head>
@@ -18,6 +19,8 @@ body {
     background: linear-gradient(135deg, #061b3b, #102f61, #075b9e);
     min-height: 100vh;
 }
+
+/* Վերևի մենյու */
 
 nav {
     position: sticky;
@@ -56,10 +59,70 @@ nav a:hover {
     color: #36cfff;
 }
 
+/* Հիմնական կառուցվածք */
+
 .container {
-    max-width: 1100px;
-    margin: 60px auto;
+    max-width: 1250px;
+    margin: 50px auto;
     padding: 20px;
+}
+
+.main-layout {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 25px;
+    align-items: start;
+}
+
+/* Ձախ մենյու */
+
+.left-menu {
+    position: sticky;
+    top: 115px;
+    background: rgba(3,20,50,.95);
+    border: 1px solid #36cfff66;
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 10px 35px #0004;
+}
+
+.left-menu h3 {
+    color: #36cfff;
+    font-size: 18px;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.left-menu a {
+    display: block;
+    color: #e1ebff;
+    text-decoration: none;
+    padding: 13px 10px;
+    margin-bottom: 9px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: .3s;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.left-menu a:hover {
+    background: rgba(54,207,255,.15);
+    border-color: #36cfff;
+    color: #36cfff;
+    transform: translateX(3px);
+}
+
+.left-menu a.active {
+    background: rgba(54,207,255,.2);
+    border-color: #36cfff;
+    color: #36cfff;
+}
+
+/* Հիմնական բովանդակություն */
+
+.main-content {
+    min-width: 0;
 }
 
 h1 {
@@ -69,23 +132,33 @@ h1 {
     margin-bottom: 25px;
 }
 
-.intro {
-    text-align: center;
-    line-height: 1.9;
-    font-size: 17px;
-    color: #e1ebff;
-    max-width: 850px;
-    margin: auto auto 35px;
-}
-
 .content {
+    display: none;
     background: rgba(8,35,76,.85);
     border: 1px solid #36cfff66;
     border-radius: 20px;
     padding: 30px;
-    margin-bottom: 25px;
     box-shadow: 0 10px 35px #0004;
     line-height: 1.9;
+}
+
+/* Միայն ընտրված բաժինն է երևում */
+
+.content.active {
+    display: block;
+    animation: fadeIn .45s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 h2 {
@@ -105,6 +178,8 @@ p {
     margin: 15px 0;
 }
 
+/* Կոճակներ */
+
 .video {
     display: block;
     width: fit-content;
@@ -123,14 +198,38 @@ p {
     transform: translateY(-3px);
 }
 
+/* Footer */
+
 footer {
     text-align: center;
     padding: 25px;
     background: #020f27;
     color: #c8ddff;
+    margin-top: 60px;
 }
 
-@media(max-width:650px) {
+/* Հեռախոսների համար */
+
+@media(max-width:750px) {
+
+    .container {
+        margin: 25px auto;
+        padding: 12px;
+    }
+
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .left-menu {
+        position: static;
+    }
+
+    .left-menu a {
+        display: inline-block;
+        margin: 4px;
+    }
+
     nav {
         justify-content: center;
     }
@@ -144,13 +243,17 @@ footer {
         padding: 20px;
     }
 }
+
 </style>
 </head>
 
 <body>
 
+<!-- ՎԵՐԵՎԻ ՄԵՆՅՈՒ -->
+
 <nav>
     <div class="logo">📡 Նախագծային</div>
+
     <ul>
         <li><a href="index.html">Գլխավոր</a></li>
         <li><a href="waves.html">Էլեկտրամագնիսական ալիքներ</a></li>
@@ -160,91 +263,222 @@ footer {
     </ul>
 </nav>
 
+
 <div class="container">
 
-    <h1>Էլեկտրամագնիսական ալիքներ</h1>
+<div class="main-layout">
 
-    <p class="intro">
-        Էլեկտրամագնիսական ալիքները ժամանակակից տեխնոլոգիաների
-        կարևորագույն հիմքերից են։ Դրանց միջոցով իրականացվում են
-        կապը, տեղեկատվության փոխանցումը և բազմաթիվ գիտական
-        գործընթացներ։
-    </p>
+    <!-- ՁԱԽ ՄԵՆՅՈՒ -->
 
-    <section class="content">
-        <h2>Ի՞նչ են էլեկտրամագնիսական ալիքները</h2>
+    <aside class="left-menu">
 
-        <p>
-            Էլեկտրամագնիսական ալիքները տարածության մեջ տարածվող
-            էլեկտրական և մագնիսական դաշտերի տատանումներն են։
-            Դրանք կարող են տարածվել նաև վակուումում։
-        </p>
+        <h3>📚 Բաժիններ</h3>
 
-        <p>
-            Վակուումում դրանց արագությունը մոտավորապես
-            3 × 10⁸ մ/վ է՝ լույսի արագությունը։
-        </p>
-
-        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=85"
-             alt="Գիտություն և ալիքներ">
-    </section>
-
-    <section class="content">
-        <h2>Էլեկտրամագնիսական ալիքների տեսակները</h2>
-
-        <p>
-            Դրանց օրինակներն են՝
-        </p>
-
-        <p>
-            • Ռադիոալիքներ<br>
-            • Միկրոալիքներ<br>
-            • Ինֆրակարմիր ճառագայթներ<br>
-            • Տեսանելի լույս<br>
-            • Ուլտրամանուշակագույն ճառագայթներ<br>
-            • Ռենտգենյան ճառագայթներ<br>
-            • Գամմա ճառագայթներ
-        </p>
-    </section>
-
-    <section class="content">
-        <h2>Որտե՞ղ են օգտագործվում</h2>
-
-        <p>
-            Էլեկտրամագնիսական ալիքներն օգտագործվում են
-            ռադիոկապի, հեռուստատեսության, բջջային կապի,
-            բժշկության, արբանյակային կապի և բազմաթիվ այլ
-            ոլորտներում։
-        </p>
-    </section>
-
-    <section class="content lab-entry">
-        <h2>Վիրտուալ լաբորատորիա</h2>
-        <p>Փորձեք փոխել էլեկտրամագնիսական ալիքի հաճախականությունը և դիտել, թե ինչպես են փոխվում ալիքի երկարությունն ու սպեկտրի դիրքը։</p>
-        <a class="video" href="waves-lab.html">🧪 Բացել ալիքների լաբորատորիան</a>
-    </section>
-
-    <section class="content">
-        <h2>Տեսանյութ թեմայի վերաբերյալ</h2>
-
-        <p>
-            Ավելի լավ պատկերացնելու համար կարող եք դիտել
-            թեմային վերաբերող տեսանյութը։
-        </p>
-
-        <a class="video"
-           href="https://www.youtube.com/watch?v=_hYlB3wqWWY"
-           target="_blank"
-           rel="noopener noreferrer">
-           ▶ Դիտել տեսանյութը
+        <a href="#" class="active" data-section="information">
+            🌊 Էլեկտրամագնիսական ալիքներ
         </a>
-    </section>
+
+        <a href="#" data-section="types">
+            💡 Ալիքների տեսակները
+        </a>
+
+        <a href="#" data-section="usage">
+            📡 Օգտագործումը
+        </a>
+
+        <a href="#" data-section="laboratory">
+            🧪 Վիրտուալ լաբորատորիա
+        </a>
+
+        <a href="#" data-section="explanation">
+            📖 Տեսանյութ և բացատրություն
+        </a>
+
+    </aside>
+
+
+    <!-- ՀԻՄՆԱԿԱՆ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ -->
+
+    <main class="main-content">
+
+        <h1>Էլեկտրամագնիսական ալիքներ</h1>
+
+
+        <!-- ԲԱԺԻՆ 1 -->
+
+        <section class="content active" id="information">
+
+            <h2>Ի՞նչ են էլեկտրամագնիսական ալիքները</h2>
+
+            <p>
+                Էլեկտրամագնիսական ալիքները տարածության մեջ տարածվող
+                էլեկտրական և մագնիսական դաշտերի տատանումներն են։
+                Դրանք կարող են տարածվել նաև վակուումում։
+            </p>
+
+            <p>
+                Վակուումում դրանց արագությունը մոտավորապես
+                3 × 10⁸ մ/վ է՝ լույսի արագությունը։
+            </p>
+
+            <img
+                src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=85"
+                alt="Գիտություն և ալիքներ">
+
+        </section>
+
+
+        <!-- ԲԱԺԻՆ 2 -->
+
+        <section class="content" id="types">
+
+            <h2>Էլեկտրամագնիսական ալիքների տեսակները</h2>
+
+            <p>
+                Էլեկտրամագնիսական ալիքները բաժանվում են
+                մի քանի հիմնական տեսակների՝ ըստ հաճախականության
+                և ալիքի երկարության։
+            </p>
+
+            <p>
+                • Ռադիոալիքներ<br>
+                • Միկրոալիքներ<br>
+                • Ինֆրակարմիր ճառագայթներ<br>
+                • Տեսանելի լույս<br>
+                • Ուլտրամանուշակագույն ճառագայթներ<br>
+                • Ռենտգենյան ճառագայթներ<br>
+                • Գամմա ճառագայթներ
+            </p>
+
+        </section>
+
+
+        <!-- ԲԱԺԻՆ 3 -->
+
+        <section class="content" id="usage">
+
+            <h2>Որտե՞ղ են օգտագործվում</h2>
+
+            <p>
+                Էլեկտրամագնիսական ալիքներն օգտագործվում են
+                ռադիոկապի, հեռուստատեսության, բջջային կապի,
+                բժշկության, արբանյակային կապի և բազմաթիվ այլ
+                ոլորտներում։
+            </p>
+
+            <p>
+                Դրանք հնարավորություն են տալիս փոխանցել
+                տեղեկություններ մեծ հեռավորությունների վրա,
+                ստանալ բժշկական պատկերներ և ուսումնասիրել
+                տիեզերքը։
+            </p>
+
+        </section>
+
+
+        <!-- ԲԱԺԻՆ 4 -->
+
+        <section class="content" id="laboratory">
+
+            <h2>Վիրտուալ լաբորատորիա</h2>
+
+            <p>
+                Փորձեք փոխել էլեկտրամագնիսական ալիքի հաճախականությունը
+                և դիտել, թե ինչպես են փոխվում ալիքի երկարությունն
+                ու սպեկտրի դիրքը։
+            </p>
+
+            <a class="video" href="waves-lab.html">
+                🧪 Բացել ալիքների լաբորատորիան
+            </a>
+
+        </section>
+
+
+        <!-- ԲԱԺԻՆ 5 -->
+
+        <section class="content" id="explanation">
+
+            <h2>Տեսանյութ թեմայի վերաբերյալ</h2>
+
+            <p>
+                Ավելի լավ պատկերացնելու համար կարող եք դիտել
+                թեմային վերաբերող տեսանյութը։
+            </p>
+
+            <a class="video"
+               href="https://www.youtube.com/watch?v=_hYlB3wqWWY"
+               target="_blank"
+               rel="noopener noreferrer">
+
+                ▶ Դիտել տեսանյութը
+
+            </a>
+
+        </section>
+
+    </main>
 
 </div>
+</div>
+
 
 <footer>
     © 2026 | Նախագծային կայք
 </footer>
+
+
+<!-- ԲԱԺԻՆՆԵՐԻ ՓՈՓՈԽՄԱՆ JAVASCRIPT -->
+
+<script>
+
+const menuLinks = document.querySelectorAll(
+    '.left-menu a'
+);
+
+const sections = document.querySelectorAll(
+    '.main-content .content'
+);
+
+menuLinks.forEach(link => {
+
+    link.addEventListener('click', function(event) {
+
+        event.preventDefault();
+
+        // Ընտրված բաժնի ID-ն
+        const sectionId = this.dataset.section;
+
+        // Թաքցնում ենք բոլոր բաժինները
+        sections.forEach(section => {
+            section.classList.remove('active');
+        });
+
+        // Բացում ենք միայն ընտրված բաժինը
+        const selectedSection = document.getElementById(sectionId);
+
+        if (selectedSection) {
+            selectedSection.classList.add('active');
+        }
+
+        // Թարմացնում ենք ակտիվ մենյուն
+        menuLinks.forEach(item => {
+            item.classList.remove('active');
+        });
+
+        this.classList.add('active');
+
+        // Սահուն տեղափոխում դեպի էջի վերև
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+    });
+
+});
+
+</script>
 
 </body>
 </html>
