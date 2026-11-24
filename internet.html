@@ -67,14 +67,14 @@ nav a:hover {
 /* Հիմնական կառուցվածք */
 
 .container {
-    max-width: 1450px;
+    max-width: 1250px;
     margin: 50px auto;
     padding: 20px;
 }
 
 .main-layout {
     display: grid;
-    grid-template-columns: 220px minmax(0, 1fr) 220px;
+    grid-template-columns: 220px minmax(0, 1fr);
     gap: 25px;
     align-items: start;
 }
@@ -127,10 +127,9 @@ p {
     margin: 15px 0;
 }
 
-/* Ձախ և աջ մենյուներ */
+/* Ձախ կողմի մենյու */
 
-.left-menu,
-.side-menu {
+.left-menu {
     position: sticky;
     top: 115px;
     background: rgba(3,20,50,.95);
@@ -140,16 +139,14 @@ p {
     box-shadow: 0 10px 35px #0004;
 }
 
-.left-menu h3,
-.side-menu h3 {
+.left-menu h3 {
     color: #36cfff;
     font-size: 18px;
     margin-bottom: 18px;
     text-align: center;
 }
 
-.left-menu a,
-.side-menu a {
+.left-menu a {
     display: block;
     color: #e1ebff;
     text-decoration: none;
@@ -162,22 +159,20 @@ p {
     line-height: 1.5;
 }
 
-.left-menu a:hover,
-.side-menu a:hover {
+.left-menu a:hover {
     background: rgba(54,207,255,.15);
     border-color: #36cfff;
     color: #36cfff;
     transform: translateX(3px);
 }
 
-.left-menu a.active,
-.side-menu a.active {
+.left-menu a.active {
     background: rgba(54,207,255,.18);
     border-color: #36cfff;
     color: #36cfff;
 }
 
-/* Լաբորատորիայի և տեսանյութի կոճակներ */
+/* Կոճակներ */
 
 .video {
     display: block;
@@ -206,23 +201,22 @@ footer {
     color: #c8ddff;
 }
 
-/* Պլանշետների համար */
+/* Պլանշետներ և փոքր էկրաններ */
 
-@media(max-width:1050px) {
+@media(max-width:850px) {
     .main-layout {
-        grid-template-columns: 180px minmax(0, 1fr) 180px;
-        gap: 12px;
+        grid-template-columns: 180px minmax(0, 1fr);
+        gap: 15px;
     }
 
-    .left-menu,
-    .side-menu {
+    .left-menu {
         padding: 12px;
     }
 }
 
-/* Հեռախոսների համար */
+/* Հեռախոսներ */
 
-@media(max-width:750px) {
+@media(max-width:650px) {
 
     .container {
         margin: 25px auto;
@@ -233,13 +227,11 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    .left-menu,
-    .side-menu {
+    .left-menu {
         position: static;
     }
 
-    .left-menu a,
-    .side-menu a {
+    .left-menu a {
         display: inline-block;
         margin: 4px;
     }
@@ -257,6 +249,7 @@ footer {
         padding: 20px;
     }
 }
+
 </style>
 </head>
 
@@ -281,7 +274,7 @@ footer {
 
 <div class="main-layout">
 
-    <!-- ՁԱԽ ՄԵՆՅՈՒ -->
+    <!-- ՁԱԽ ԿՈՂՄԻ ՄԵՆՅՈՒ -->
 
     <aside class="left-menu">
 
@@ -300,7 +293,7 @@ footer {
     </aside>
 
 
-    <!-- ԿԵՆՏՐՈՆԱԿԱՆ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ -->
+    <!-- ՀԻՄՆԱԿԱՆ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ -->
 
     <main class="main-content">
 
@@ -404,25 +397,6 @@ footer {
 
     </main>
 
-
-    <!-- ԱՋ ՄԵՆՅՈՒ -->
-
-    <aside class="side-menu">
-
-        <h3>📑 Բաժիններ</h3>
-
-        <a href="#information">🌐 Համացանցի մասին</a>
-
-        <a href="#possibilities">💡 Հնարավորությունները</a>
-
-        <a href="#security">🔒 Անվտանգություն</a>
-
-        <a href="#laboratory">🧪 Վիրտուալ լաբորատորիա</a>
-
-        <a href="#explanation">📖 Բացատրություն և տեսանյութ</a>
-
-    </aside>
-
 </div>
 </div>
 
@@ -441,7 +415,7 @@ const sections = document.querySelectorAll(
 );
 
 const menuLinks = document.querySelectorAll(
-    '.left-menu a, .side-menu a'
+    '.left-menu a'
 );
 
 const observer = new IntersectionObserver((entries) => {
@@ -454,13 +428,13 @@ const observer = new IntersectionObserver((entries) => {
                 link.classList.remove('active');
             });
 
-            const activeLinks = document.querySelectorAll(
-                'a[href="#' + entry.target.id + '"]'
+            const activeLink = document.querySelector(
+                '.left-menu a[href="#' + entry.target.id + '"]'
             );
 
-            activeLinks.forEach(link => {
-                link.classList.add('active');
-            });
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
 
         }
 
