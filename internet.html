@@ -15,7 +15,7 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 100px;
+    scroll-padding-top: 110px;
 }
 
 body {
@@ -24,6 +24,8 @@ body {
     background: linear-gradient(135deg,#061b3b,#102f61,#075b9e);
     min-height: 100vh;
 }
+
+/* Վերևի մենյու */
 
 nav {
     position: sticky;
@@ -62,17 +64,17 @@ nav a:hover {
     color: #36cfff;
 }
 
+/* Հիմնական կառուցվածք */
+
 .container {
-    max-width: 1100px;
-    margin: 60px auto;
+    max-width: 1450px;
+    margin: 50px auto;
     padding: 20px;
 }
 
-/* Հիմնական դասավորություն */
-
 .main-layout {
     display: grid;
-    grid-template-columns: 1fr 240px;
+    grid-template-columns: 220px minmax(0, 1fr) 220px;
     gap: 25px;
     align-items: start;
 }
@@ -125,6 +127,58 @@ p {
     margin: 15px 0;
 }
 
+/* Ձախ և աջ մենյուներ */
+
+.left-menu,
+.side-menu {
+    position: sticky;
+    top: 115px;
+    background: rgba(3,20,50,.95);
+    border: 1px solid #36cfff66;
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 10px 35px #0004;
+}
+
+.left-menu h3,
+.side-menu h3 {
+    color: #36cfff;
+    font-size: 18px;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.left-menu a,
+.side-menu a {
+    display: block;
+    color: #e1ebff;
+    text-decoration: none;
+    padding: 12px 10px;
+    margin-bottom: 9px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: .3s;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.left-menu a:hover,
+.side-menu a:hover {
+    background: rgba(54,207,255,.15);
+    border-color: #36cfff;
+    color: #36cfff;
+    transform: translateX(3px);
+}
+
+.left-menu a.active,
+.side-menu a.active {
+    background: rgba(54,207,255,.18);
+    border-color: #36cfff;
+    color: #36cfff;
+}
+
+/* Լաբորատորիայի և տեսանյութի կոճակներ */
+
 .video {
     display: block;
     width: fit-content;
@@ -143,68 +197,7 @@ p {
     transform: translateY(-3px);
 }
 
-/* Աջ կողմի մենյու */
-
-.side-menu {
-    position: sticky;
-    top: 115px;
-    background: rgba(3,20,50,.92);
-    border: 1px solid #36cfff66;
-    border-radius: 18px;
-    padding: 20px;
-    box-shadow: 0 10px 35px #0004;
-}
-
-.side-menu h3 {
-    color: #36cfff;
-    font-size: 18px;
-    margin-bottom: 18px;
-    text-align: center;
-}
-
-.side-menu a {
-    display: block;
-    color: #e1ebff;
-    text-decoration: none;
-    padding: 13px 12px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    border: 1px solid transparent;
-    transition: .3s;
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.side-menu a:hover {
-    background: rgba(54,207,255,.15);
-    border-color: #36cfff;
-    color: #36cfff;
-    transform: translateX(-4px);
-}
-
-.side-menu a.active {
-    background: rgba(54,207,255,.18);
-    border-color: #36cfff;
-    color: #36cfff;
-}
-
-/* Հեռախոսների համար */
-
-@media(max-width:800px) {
-    .main-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .side-menu {
-        position: static;
-        order: -1;
-    }
-
-    .side-menu a {
-        display: inline-block;
-        margin: 4px;
-    }
-}
+/* Ստորին հատված */
 
 footer {
     text-align: center;
@@ -213,7 +206,44 @@ footer {
     color: #c8ddff;
 }
 
-@media(max-width:650px) {
+/* Պլանշետների համար */
+
+@media(max-width:1050px) {
+    .main-layout {
+        grid-template-columns: 180px minmax(0, 1fr) 180px;
+        gap: 12px;
+    }
+
+    .left-menu,
+    .side-menu {
+        padding: 12px;
+    }
+}
+
+/* Հեռախոսների համար */
+
+@media(max-width:750px) {
+
+    .container {
+        margin: 25px auto;
+        padding: 12px;
+    }
+
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .left-menu,
+    .side-menu {
+        position: static;
+    }
+
+    .left-menu a,
+    .side-menu a {
+        display: inline-block;
+        margin: 4px;
+    }
+
     nav {
         justify-content: center;
     }
@@ -232,8 +262,11 @@ footer {
 
 <body>
 
+<!-- ՎԵՐԵՎԻ ՄԵՆՅՈՒ -->
+
 <nav>
     <div class="logo">📡 Նախագծային</div>
+
     <ul>
         <li><a href="index.html">Գլխավոր</a></li>
         <li><a href="waves.html">Էլեկտրամագնիսական ալիքներ</a></li>
@@ -243,139 +276,172 @@ footer {
     </ul>
 </nav>
 
+
 <div class="container">
 
 <div class="main-layout">
 
-<!-- ՀԻՄՆԱԿԱՆ ԲՈՎԱՆԴԱԿՈՒԹՅՈՒՆ -->
+    <!-- ՁԱԽ ՄԵՆՅՈՒ -->
 
-<div class="main-content">
+    <aside class="left-menu">
 
-    <h1>Համացանց</h1>
+        <h3>📚 Նյութեր</h3>
 
-    <p class="intro">
-        Համացանցը ժամանակակից աշխարհի ամենակարևոր
-        տեխնոլոգիաներից է, որն իրար է կապում միլիոնավոր
-        սարքեր և մարդկանց ամբողջ աշխարհում։
-    </p>
+        <a href="#information">🌐 Համացանց</a>
 
-    <section class="content" id="information">
-        <h2>Ի՞նչ է համացանցը</h2>
+        <a href="#possibilities">💡 Հնարավորություններ</a>
 
-        <p>
-            Համացանցը միմյանց միացված համակարգիչների,
-            սերվերների և այլ սարքերի համաշխարհային ցանց է։
-            Այն հնարավորություն է տալիս արագ փոխանակել
-            տեղեկություններ, հաղորդագրություններ,
-            նկարներ և տեսանյութեր։
+        <a href="#security">🔒 Անվտանգություն</a>
+
+        <a href="#laboratory">🧪 Լաբորատորիա</a>
+
+        <a href="#explanation">📖 Բացատրություն</a>
+
+    </aside>
+
+
+    <!-- ԿԵՆՏՐՈՆԱԿԱՆ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ -->
+
+    <main class="main-content">
+
+        <h1>Համացանց</h1>
+
+        <p class="intro">
+            Համացանցը ժամանակակից աշխարհի ամենակարևոր
+            տեխնոլոգիաներից է, որն իրար է կապում միլիոնավոր
+            սարքեր և մարդկանց ամբողջ աշխարհում։
         </p>
 
-        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=85"
-             alt="Համաշխարհային թվային ցանց">
-    </section>
 
-    <section class="content" id="possibilities">
-        <h2>Համացանցի հնարավորությունները</h2>
+        <section class="content" id="information">
 
-        <p>Համացանցի միջոցով կարելի է՝</p>
+            <h2>Ի՞նչ է համացանցը</h2>
 
-        <p>
-            • Սովորել առցանց<br>
-            • Օգտվել տարբեր կայքերից<br>
-            • Փոխանակել տեղեկություններ<br>
-            • Աշխատել հեռավար<br>
-            • Հաղորդակցվել աշխարհի տարբեր երկրներում գտնվող մարդկանց հետ
-        </p>
-    </section>
+            <p>
+                Համացանցը միմյանց միացված համակարգիչների,
+                սերվերների և այլ սարքերի համաշխարհային ցանց է։
+                Այն հնարավորություն է տալիս արագ փոխանակել
+                տեղեկություններ, հաղորդագրություններ,
+                նկարներ և տեսանյութեր։
+            </p>
 
-    <section class="content" id="security">
-        <h2>Անվտանգությունը համացանցում</h2>
+            <img
+                src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=85"
+                alt="Համաշխարհային թվային ցանց">
 
-        <p>
-            Համացանցից օգտվելիս կարևոր է պահպանել
-            անձնական տվյալների անվտանգությունը։
-            Պետք է օգտագործել ուժեղ գաղտնաբառեր,
-            չտարածել անձնական տեղեկություններ և
-            զգուշանալ անհայտ հղումներից։
-        </p>
-    </section>
+        </section>
 
-    <section class="content" id="laboratory">
-        <h2>Վիրտուալ լաբորատորիա</h2>
 
-        <p>
-            Գործարկեք տվյալների փոխանցման փորձը և
-            ուսումնասիրեք, թե ինչպես են փաթեթները
-            շարժվում սարքերի ու սերվերի միջև։
-        </p>
+        <section class="content" id="possibilities">
 
-        <a class="video" href="internet-lab.html">
-            🧪 Բացել համացանցի լաբորատորիան
-        </a>
-    </section>
+            <h2>Համացանցի հնարավորությունները</h2>
 
-    <section class="content" id="explanation">
-        <h2>Տեսանյութ և բացատրություն</h2>
+            <p>
+                Համացանցի միջոցով կարելի է՝
+            </p>
 
-        <p>
-            Համացանցի մասին լրացուցիչ տեղեկություններ
-            ստանալու համար դիտեք տեսանյութը։
-        </p>
+            <p>
+                • Սովորել առցանց<br>
+                • Օգտվել տարբեր կայքերից<br>
+                • Փոխանակել տեղեկություններ<br>
+                • Աշխատել հեռավար<br>
+                • Հաղորդակցվել աշխարհի տարբեր երկրներում գտնվող մարդկանց հետ
+            </p>
 
-        <a class="video"
-           href="https://www.youtube.com/watch?v=wQ52H-BlnXg"
-           target="_blank"
-           rel="noopener noreferrer">
-           🌐 Դիտել տեսանյութը
-        </a>
-    </section>
+        </section>
+
+
+        <section class="content" id="security">
+
+            <h2>Անվտանգությունը համացանցում</h2>
+
+            <p>
+                Համացանցից օգտվելիս կարևոր է պահպանել
+                անձնական տվյալների անվտանգությունը։
+                Պետք է օգտագործել ուժեղ գաղտնաբառեր,
+                չտարածել անձնական տեղեկություններ և
+                զգուշանալ անհայտ հղումներից։
+            </p>
+
+        </section>
+
+
+        <section class="content" id="laboratory">
+
+            <h2>Վիրտուալ լաբորատորիա</h2>
+
+            <p>
+                Գործարկեք տվյալների փոխանցման փորձը և ուսումնասիրեք,
+                թե ինչպես են փաթեթները շարժվում սարքերի ու սերվերի միջև։
+            </p>
+
+            <a class="video" href="internet-lab.html">
+                🧪 Բացել համացանցի լաբորատորիան
+            </a>
+
+        </section>
+
+
+        <section class="content" id="explanation">
+
+            <h2>Տեսանյութ և բացատրություն</h2>
+
+            <p>
+                Համացանցի մասին լրացուցիչ տեղեկություններ
+                ստանալու համար դիտեք տեսանյութը։
+            </p>
+
+            <a class="video"
+               href="https://www.youtube.com/watch?v=wQ52H-BlnXg"
+               target="_blank"
+               rel="noopener noreferrer">
+
+                🌐 Դիտել տեսանյութը
+
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- ԱՋ ՄԵՆՅՈՒ -->
+
+    <aside class="side-menu">
+
+        <h3>📑 Բաժիններ</h3>
+
+        <a href="#information">🌐 Համացանցի մասին</a>
+
+        <a href="#possibilities">💡 Հնարավորությունները</a>
+
+        <a href="#security">🔒 Անվտանգություն</a>
+
+        <a href="#laboratory">🧪 Վիրտուալ լաբորատորիա</a>
+
+        <a href="#explanation">📖 Բացատրություն և տեսանյութ</a>
+
+    </aside>
 
 </div>
-
-<!-- ԱՋ ԿՈՂՄԻ ՆԱՎԻԳԱՑԻՈՆ ՄԵՆՅՈՒ -->
-
-<aside class="side-menu">
-
-    <h3>📑 Բաժիններ</h3>
-
-    <a href="#information" class="active">
-        🌐 Համացանցի մասին
-    </a>
-
-    <a href="#possibilities">
-        💡 Համացանցի հնարավորությունները
-    </a>
-
-    <a href="#security">
-        🔒 Անվտանգություն
-    </a>
-
-    <a href="#laboratory">
-        🧪 Վիրտուալ լաբորատորիա
-    </a>
-
-    <a href="#explanation">
-        📖 Բացատրություն և տեսանյութ
-    </a>
-
-</aside>
-
 </div>
-</div>
+
 
 <footer>
     © 2026 | Նախագծային կայք
 </footer>
 
-<!-- Մենյուի ակտիվ բաժնի ավտոմատ նշում -->
+
+<!-- ԱԿՏԻՎ ԲԱԺՆԻ ԱՎՏՈՄԱՏ ՆՇՈՒՄ -->
 
 <script>
+
 const sections = document.querySelectorAll(
     '.main-content .content'
 );
 
 const menuLinks = document.querySelectorAll(
-    '.side-menu a'
+    '.left-menu a, .side-menu a'
 );
 
 const observer = new IntersectionObserver((entries) => {
@@ -388,13 +454,14 @@ const observer = new IntersectionObserver((entries) => {
                 link.classList.remove('active');
             });
 
-            const activeLink = document.querySelector(
-                '.side-menu a[href="#' + entry.target.id + '"]'
+            const activeLinks = document.querySelectorAll(
+                'a[href="#' + entry.target.id + '"]'
             );
 
-            if (activeLink) {
-                activeLink.classList.add('active');
-            }
+            activeLinks.forEach(link => {
+                link.classList.add('active');
+            });
+
         }
 
     });
@@ -406,6 +473,7 @@ const observer = new IntersectionObserver((entries) => {
 sections.forEach(section => {
     observer.observe(section);
 });
+
 </script>
 
 </body>
